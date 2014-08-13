@@ -57,13 +57,18 @@ data stored in collections of Scala case classes and Java beans.
 
 The Scala code:
 
-    val groceryList = Seq(
-      GroceryItem("Milk"),
-      GroceryItem("Eggs"),
-      GroceryItem("Cheese"))
+      @Test
+      def basicTables(): Unit = {
+        val groceryList = Seq(
+          GroceryItem("Milk"),
+          GroceryItem("Eggs"),
+          GroceryItem("Cheese"))
+    
+        val tabular = new Tabular()
+        tabular.transform(groceryList) foreach(logger.info)
+      }
 
-    val tabular = new Tabular()
-    tabular.transform(groceryList) foreach(logger.info)
+      case class GroceryItem(name: String, quantity: Int = 1)
 
 The output:
 
