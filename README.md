@@ -52,6 +52,7 @@ data stored in collections of Scala case classes and Java beans.
 
     $ sbt test    
 
+<a name="usage"></a> 
 ### Usage Examples
 
 The Scala code:
