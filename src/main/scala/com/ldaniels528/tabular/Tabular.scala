@@ -110,7 +110,7 @@ class Tabular() {
       case v if v == null => ""
       case b: Boolean => if (b) "Y" else "N"
       case d: Date => new SimpleDateFormat("MM/dd/yyyy hh:mma z").format(d)
-      case o: Option[Any] => if (o.isDefined) asString(o.get) else ""
+      case o: Option[_] => if (o.isDefined) asString(o.get) else ""
       case v => String.valueOf(v)
     }
   }
