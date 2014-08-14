@@ -63,7 +63,7 @@ The Scala code:
           GroceryItem("Milk", requestedBy = "kids"),
           GroceryItem("Eggs", requestedBy = "Mom"),
           GroceryItem("Cheese", requestedBy = "Mom"),
-          GroceryItem("Beer", requestedBy = "Dad"))
+          GroceryItem("Beer", quantity = 12, requestedBy = "Dad"))
     
         val tabular = new Tabular()
         tabular.transform(groceryList) foreach logger.info
@@ -73,12 +73,12 @@ The Scala code:
 
 The output:
 
-    2014-08-13 19:01:18 INFO  TabularTest:22 - + ------------------------------- +
-    2014-08-13 19:01:18 INFO  TabularTest:22 - | item    quantity  requestedBy   |
-    2014-08-13 19:01:18 INFO  TabularTest:22 - + ------------------------------- +
-    2014-08-13 19:01:18 INFO  TabularTest:22 - | Milk    1         kids          |
-    2014-08-13 19:01:18 INFO  TabularTest:22 - | Eggs    1         Mom           |
-    2014-08-13 19:01:18 INFO  TabularTest:22 - | Cheese  1         Mom           |
-    2014-08-13 19:01:18 INFO  TabularTest:22 - | Beer    1         Dad           |
-    2014-08-13 19:01:18 INFO  TabularTest:22 - + ------------------------------- +
+    2014-08-13 19:44:35 INFO  TabularTest:35 - + ------------------------------- +
+    2014-08-13 19:44:35 INFO  TabularTest:35 - | item    quantity  requestedBy   |
+    2014-08-13 19:44:35 INFO  TabularTest:35 - + ------------------------------- +
+    2014-08-13 19:44:35 INFO  TabularTest:35 - | Milk    1         kids          |
+    2014-08-13 19:44:35 INFO  TabularTest:35 - | Eggs    1         Mom           |
+    2014-08-13 19:44:35 INFO  TabularTest:35 - | Cheese  1         Mom           |
+    2014-08-13 19:44:35 INFO  TabularTest:35 - | Beer    12        Dad           |
+    2014-08-13 19:44:35 INFO  TabularTest:35 - + ------------------------------- +
 

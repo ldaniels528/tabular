@@ -20,7 +20,7 @@ class TabularTest {
    * | Milk    1         kids          |
    * | Eggs    1         Mom           |
    * | Cheese  1         Mom           |
-   * | Beer    1         Dad           |
+   * | Beer    12        Dad           |
    * + ------------------------------- +
    */
   @Test
@@ -29,7 +29,7 @@ class TabularTest {
       GroceryItem("Milk", requestedBy = "kids"),
       GroceryItem("Eggs", requestedBy = "Mom"),
       GroceryItem("Cheese", requestedBy = "Mom"),
-      GroceryItem("Beer", requestedBy = "Dad"))
+      GroceryItem("Beer", quantity = 12, requestedBy = "Dad"))
 
     val tabular = new Tabular()
     tabular.transform(groceryList) foreach logger.info
