@@ -85,7 +85,6 @@ class Tabular() {
   }
 
   protected def convert[A](headers: Seq[String], v: A): Map[String, String] = {
-    val beanClass = v.getClass
     Map(headers map (f => (f, asString(invokeMethod(v, f)))): _*)
   }
 
