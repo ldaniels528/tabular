@@ -78,13 +78,13 @@ class Tabular() {
     val headerLine = s"| ${constructRow(headers zip widths)} |"
 
     // create the data grid
-    val datagrid = (rows map { row =>
+    val dataGrid = (rows map { row =>
       val data = headers map (row.getOrElse(_, " "))
       s"| ${constructRow(data zip widths)} |"
     }).toList
 
     // create the table
-    borderLine :: headerLine :: borderLine :: datagrid ::: borderLine :: Nil
+    borderLine :: headerLine :: borderLine :: dataGrid ::: borderLine :: Nil
   }
 
   protected def convert[A](headers: Seq[String], v: A): Map[String, String] = {
