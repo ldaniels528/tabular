@@ -1,5 +1,6 @@
 package com.ldaniels528.tabular
 
+import com.ldaniels528.tabular.formatters.NumberFormatHandler
 import org.junit.Test
 import org.slf4j.LoggerFactory
 
@@ -35,6 +36,19 @@ class TabularTest {
     tabular.transform(groceryList) foreach logger.info
   }
 
+  @Test
+  def usingFormatters() {
+    val scores = Seq(
+      Score("Lawrence", 5000),
+      Score("Stan", 6500),
+      Score("Cullen", 5700))
+
+    val tabular = new Tabular() with NumberFormatHandler
+    tabular.transform(scores) foreach logger.info
+  }
+
   case class GroceryItem(item: String, quantity: Int = 1, requestedBy: String)
+
+  case class Score(name: String, score: Int)
 
 }
