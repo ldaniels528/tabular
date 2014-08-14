@@ -4,7 +4,7 @@ name := "tabular"
 
 organization := "com.ldaniels528"
 
-version := "0.01"
+version := "0.1.0"
 
 scalaVersion := "2.10.4"
 
