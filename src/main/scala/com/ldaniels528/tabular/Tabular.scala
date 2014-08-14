@@ -13,7 +13,7 @@ class Tabular() {
    * represent a table.
    */
   def transform[A](values: Seq[A]): Seq[String] = {
-    if (values.isEmpty) Seq.empty
+    if (values.isEmpty) Nil
     else {
       // get the headers, data rows, and column widths
       val headers = getHeaders(values(0))
@@ -25,7 +25,7 @@ class Tabular() {
   }
 
   def transformPrimitives[A](values: Seq[A]): Seq[String] = {
-    if (values.isEmpty) Seq.empty
+    if (values.isEmpty) Nil
     else {
       // get the headers, data rows, and column widths
       val headers = Seq("values")
