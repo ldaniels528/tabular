@@ -18,7 +18,7 @@ Table of Contents
 ## Motivations
 
 There are many instances where I've needed a simple lightweight tool for generating tables for tabular
-data stored in collections of Scala case classes and Java beans.
+data stored in collections of Scala case classes.
 
 <a name="development"></a>
 ## Development
