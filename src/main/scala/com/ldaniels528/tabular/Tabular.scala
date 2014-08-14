@@ -1,5 +1,6 @@
 package com.ldaniels528.tabular
 
+import com.ldaniels528.tabular.formatters.FormatHandler
 import org.slf4j.LoggerFactory
 
 import scala.language.postfixOps
@@ -10,6 +11,17 @@ import scala.language.postfixOps
  */
 class Tabular() {
   private lazy val logger = LoggerFactory.getLogger(getClass)
+  private var formatters: List[FormatHandler] = Nil
+
+  /**
+   * Attaches the given formatter to this instance
+   * @param formatter the given [[FormatHandler]]
+   * @return self
+   */
+  def +=(formatter: FormatHandler): Tabular = {
+    formatters = formatter :: formatters
+    this
+  }
 
   /**
    * Transforms the given sequence of objects into a sequence of string that
@@ -106,12 +118,16 @@ class Tabular() {
     import java.text.SimpleDateFormat
     import java.util.Date
 
-    value match {
-      case v if v == null => ""
-      case b: Boolean => if (b) "Y" else "N"
-      case d: Date => new SimpleDateFormat("MM/dd/yyyy hh:mma z").format(d)
-      case o: Option[_] => if (o.isDefined) asString(o.get) else ""
-      case v => String.valueOf(v)
+    formatters.find(_.handles(value)) flatMap(_.format(value)) match {
+      case Some(formattedValue) => formattedValue
+      case None =>
+        value match {
+          case v if v == null => ""
+          case b: Boolean => if (b) "Y" else "N"
+          case d: Date => new SimpleDateFormat("MM/dd/yyyy hh:mma z").format(d)
+          case o: Option[_] => if (o.isDefined) asString(o.get) else ""
+          case v => String.valueOf(v)
+        }
     }
   }
 
