@@ -151,14 +151,12 @@ class Tabular() {
  * @author lawrence.daniels@gmail.com
  */
 object Tabular {
-  protected[this] val PRIMITIVES = Set[Class[_]](
-    classOf[Byte], classOf[Char], classOf[Double], classOf[java.lang.Double], classOf[Float],
-    classOf[Int], classOf[Long], classOf[Short], classOf[String])
 
   def isPrimitives[A](values: Seq[A]) = {
     if (values.isEmpty) true
     else {
       values.head match {
+        case b: Byte => true
         case d: Double => true
         case f: Float => true
         case i: Int => true
