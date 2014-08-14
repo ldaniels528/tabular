@@ -15,7 +15,7 @@ class Tabular() {
 
   /**
    * Attaches the given formatter to this instance
-   * @param formatter the given [[FormatHandler]]
+   * @param formatter the given format handler
    * @return self
    */
   def +=(formatter: FormatHandler): Tabular = {
