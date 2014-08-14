@@ -21,6 +21,7 @@ trait NumberFormatHandler extends FormatHandler {
    * @return true, if the value is handled by this instance
    */
   override def handles(value: Any): Boolean = value match {
+    case s: String => false
     case n: DecimalLike => true
     case _ => false
   }
