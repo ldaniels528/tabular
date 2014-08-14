@@ -25,8 +25,8 @@ trait NumberFormatHandler extends FormatHandler {
 
   /**
    * Formats the given value
-   * @param value
-   * @return
+   * @param value the given value
+   * @return an option of a formatted value
    */
   override def format(value: Any): Option[String] = {
     import java.text.NumberFormat
