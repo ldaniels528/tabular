@@ -2,6 +2,8 @@ package com.ldaniels528.tabular.formatters
 
 import com.ldaniels528.tabular.Tabular
 
+import scala.util.{Failure, Try, Success}
+
 /**
  * Number Format Handler
  * @author lawrence.daniels@gmail.com
@@ -32,7 +34,11 @@ trait NumberFormatHandler extends FormatHandler {
     import java.text.NumberFormat
 
     value match {
-      case n: DecimalLike => Some(NumberFormat.getInstance().format(n.toDouble))
+      case n: DecimalLike =>
+        Try(Some(NumberFormat.getInstance().format(n.toDouble))) match {
+          case Success(v) => v
+          case Failure(e) => None
+        }
       case _ => None
     }
   }
