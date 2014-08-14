@@ -16,7 +16,7 @@ class Tabular() {
     if (values.isEmpty) Nil
     else {
       // get the headers, data rows, and column widths
-      val headers = getHeaders(values(0))
+      val headers = getHeaders(values.head)
       val rows = values map (convert(headers, _))
 
       // create the table
