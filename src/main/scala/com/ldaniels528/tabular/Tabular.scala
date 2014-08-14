@@ -1,5 +1,7 @@
 package com.ldaniels528.tabular
 
+import org.slf4j.LoggerFactory
+
 import scala.language.postfixOps
 
 /**
@@ -7,6 +9,7 @@ import scala.language.postfixOps
  * @author lawrence.daniels@gmail.com
  */
 class Tabular() {
+  private lazy val logger = LoggerFactory.getLogger(getClass)
 
   /**
    * Transforms the given sequence of objects into a sequence of string that
@@ -94,7 +97,7 @@ class Tabular() {
     Try(beanClass.getMethod(f).invoke(v)) match {
       case Success(result) => result
       case Failure(e) =>
-        System.err.println(s"Failed to invoke $f on ${beanClass.getName} - ${e.getMessage}")
+        logger.error(s"Failed to invoke $f on ${beanClass.getName}", e)
         ""
     }
   }
