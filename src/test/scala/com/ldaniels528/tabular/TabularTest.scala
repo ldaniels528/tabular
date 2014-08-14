@@ -10,6 +10,19 @@ import org.slf4j.LoggerFactory
 class TabularTest {
   private val logger = LoggerFactory.getLogger(getClass)
 
+  /**
+   * Generates a basic table from a case class.
+   *
+   * Expected output:
+   * + ------------------------------- +
+   * | item    quantity  requestedBy   |
+   * + ------------------------------- +
+   * | Milk    1         kids          |
+   * | Eggs    1         Mom           |
+   * | Cheese  1         Mom           |
+   * | Beer    1         Dad           |
+   * + ------------------------------- +
+   */
   @Test
   def basicTable() {
     val groceryList = Seq(
