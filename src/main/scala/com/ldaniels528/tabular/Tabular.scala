@@ -123,7 +123,7 @@ class Tabular() {
       case None =>
         value match {
           case v if v == null => ""
-          case d: Date => new SimpleDateFormat("MM/dd/yyyy hh:mma z").format(d)
+          case d: Date => new SimpleDateFormat("MM/dd/yy hh:mm:ss z").format(d)
           case o: Option[_] => if (o.isDefined) asString(o.get) else ""
           case v => String.valueOf(v)
         }
