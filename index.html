@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Tabular : A simple lightweight utility for creating ASCII/text-based tables">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Tabular</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ldaniels528/tabular">View on GitHub</a>
+
+          <h1 id="project_title">Tabular</h1>
+          <h2 id="project_tagline">A simple lightweight utility for creating ASCII/text-based tables</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ldaniels528/tabular/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ldaniels528/tabular/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="tabular" class="anchor" href="#tabular" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tabular</h1>
+
+<p>A utility class for generating ASCII/text-based tables</p>
+
+<p>Table of Contents</p>
+
+<ul>
+<li><a href="#motivations">Motivations</a></li>
+<li>
+<a href="#development">Development</a>
+
+<ul>
+<li><a href="#build-requirements">Build Requirements</a></li>
+<li><a href="#getting-the-code">Getting the code</a></li>
+<li><a href="#configuring-your-ide">Configuring the project for your IDE</a></li>
+<li><a href="#building-the-code">Building the code</a></li>
+<li>
+<a href="#testing-the-code">Running the tests</a> </li>
+</ul>
+</li>
+<li><a href="#usage">Usage Examples</a></li>
+</ul>
+
+<p><a name="motivations"></a></p>
+
+<h2>
+<a id="motivations" class="anchor" href="#motivations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivations</h2>
+
+<p>There are many instances where I've needed a simple lightweight tool for generating tables for tabular
+data stored in collections of Scala case classes.</p>
+
+<p><a name="development"></a></p>
+
+<h2>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h2>
+
+<p><a name="build-requirements"></a></p>
+
+<h3>
+<a id="build-requirements" class="anchor" href="#build-requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build Requirements</h3>
+
+<ul>
+<li>SBT 0.13+</li>
+</ul>
+
+<p><a name="getting-the-code"></a></p>
+
+<h3>
+<a id="getting-the-code" class="anchor" href="#getting-the-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting the code</h3>
+
+<pre><code>$ git clone git@github.com:ldaniels528/tabular.git
+</code></pre>
+
+<p><a name="configuring-your-ide"></a></p>
+
+<h3>
+<a id="configuring-the-project-for-your-ide" class="anchor" href="#configuring-the-project-for-your-ide" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuring the project for your IDE</h3>
+
+<h4>
+<a id="eclipse-project" class="anchor" href="#eclipse-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Eclipse project</h4>
+
+<pre><code>$ sbt eclipse
+</code></pre>
+
+<h4>
+<a id="intellij-idea-project" class="anchor" href="#intellij-idea-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Intellij Idea project</h4>
+
+<pre><code>$ sbt gen-idea
+</code></pre>
+
+<p><a name="building-the-code"></a></p>
+
+<h3>
+<a id="building-the-code" class="anchor" href="#building-the-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building the code</h3>
+
+<pre><code>$ sbt clean publish-local
+</code></pre>
+
+<p><a name="testing-the-code"></a>    </p>
+
+<h3>
+<a id="running-the-tests" class="anchor" href="#running-the-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running the tests</h3>
+
+<pre><code>$ sbt test    
+</code></pre>
+
+<p><a name="usage"></a> </p>
+
+<h3>
+<a id="usage-examples" class="anchor" href="#usage-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage Examples</h3>
+
+<p>The Scala code:</p>
+
+<pre><code>  @Test
+  def basicTable() {
+    val groceryList = Seq(
+      GroceryItem("Milk", requestedBy = "kids"),
+      GroceryItem("Eggs", requestedBy = "Mom"),
+      GroceryItem("Cheese", requestedBy = "Mom"),
+      GroceryItem("Beer", quantity = 12, requestedBy = "Dad"))
+
+    val tabular = new Tabular()
+    tabular.transform(groceryList) foreach logger.info
+  }
+
+  case class GroceryItem(item: String, quantity: Int = 1, requestedBy: String)
+</code></pre>
+
+<p>The output:</p>
+
+<pre><code>2014-08-13 19:44:35 INFO  TabularTest:35 - + ------------------------------- +
+2014-08-13 19:44:35 INFO  TabularTest:35 - | item    quantity  requestedBy   |
+2014-08-13 19:44:35 INFO  TabularTest:35 - + ------------------------------- +
+2014-08-13 19:44:35 INFO  TabularTest:35 - | Milk    1         kids          |
+2014-08-13 19:44:35 INFO  TabularTest:35 - | Eggs    1         Mom           |
+2014-08-13 19:44:35 INFO  TabularTest:35 - | Cheese  1         Mom           |
+2014-08-13 19:44:35 INFO  TabularTest:35 - | Beer    12        Dad           |
+2014-08-13 19:44:35 INFO  TabularTest:35 - + ------------------------------- +
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Tabular maintained by <a href="https://github.com/ldaniels528">ldaniels528</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
