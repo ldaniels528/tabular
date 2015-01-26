@@ -3,6 +3,7 @@ package com.ldaniels528.tabular
 import com.ldaniels528.tabular.formatters.FormatHandler
 import org.slf4j.LoggerFactory
 
+import scala.collection.GenSeq
 import scala.language.postfixOps
 
 /**
@@ -11,7 +12,7 @@ import scala.language.postfixOps
  */
 class Tabular() {
   private lazy val logger = LoggerFactory.getLogger(getClass)
-  private var formatters: List[FormatHandler] = Nil
+  private var handlers: List[FormatHandler] = Nil
 
   /**
    * Attaches the given formatter to this instance
@@ -19,8 +20,32 @@ class Tabular() {
    * @return self
    */
   def +=(formatter: FormatHandler): Tabular = {
-    formatters = formatter :: formatters
+    handlers = formatter :: handlers
     this
+  }
+
+  /**
+   * Transforms the given sequence of objects into a sequence of string that
+   * represent a table.
+   */
+  def transform(headers: Seq[String], values: Seq[Map[String, Any]]): Seq[String] = {
+    val rows = values.map(_ map { case (name, value) => (name, asString(value))})
+    makeTable(headers, rows)
+  }
+
+  /**
+   * Transforms the given sequence of objects into a sequence of string that
+   * represent a table.
+   */
+  def transform[A](values: Option[A]): Seq[String] = {
+    values map { value =>
+      // get the headers, data rows, and column widths
+      val headers = getHeaders(value)
+      val rows = Seq(convert(headers, value))
+
+      // create the table
+      makeTable(headers, rows)
+    } getOrElse Nil
   }
 
   /**
@@ -45,6 +70,24 @@ class Tabular() {
       // get the headers, data rows, and column widths
       val headers = Seq("values")
       val rows = values map (v => Map("values" -> asString(v)))
+
+      // create the table
+      makeTable(headers, rows)
+    }
+  }
+
+  /**
+   * Transforms the given mapping of objects into a sequence of string that
+   * represent a table.
+   */
+  def transformMaps[A](values: Seq[Map[String, A]]): Seq[String] = {
+    if (values.isEmpty) Nil
+    else {
+      // get the headers, data rows, and column widths
+      val headers = values.head.map(_._1).toSeq
+
+      // generate the rows of data
+      val rows = values map (_ map { case (k, v) => (k, String.valueOf(v))})
 
       // create the table
       makeTable(headers, rows)
@@ -118,7 +161,7 @@ class Tabular() {
     import java.text.SimpleDateFormat
     import java.util.Date
 
-    formatters.find(_.handles(value)) flatMap(_.format(value)) match {
+    val output = handlers.find(_.handles(value)) flatMap (_.format(value)) match {
       case Some(formattedValue) => formattedValue
       case None =>
         value match {
@@ -128,6 +171,7 @@ class Tabular() {
           case v => String.valueOf(v)
         }
     }
+    if(output.length > 140) output.substring(0, 140) + "..." else output
   }
 
   protected def getHeaders[A](value: A): Seq[String] = {
@@ -170,7 +214,24 @@ class Tabular() {
  */
 object Tabular {
 
-  def isPrimitives[A](values: Seq[A]) = {
+  def isPrimitives[A](values: GenSeq[A]) = {
+    if (values.isEmpty) true
+    else {
+      values.head match {
+        case b: Byte => true
+        case d: Double => true
+        case f: Float => true
+        case i: Int => true
+        case l: Long => true
+        case n: Number => true
+        case s: Short => true
+        case s: String => true
+        case _ => false
+      }
+    }
+  }
+
+  def isPrimitives[A](values: Option[A]) = {
     if (values.isEmpty) true
     else {
       values.head match {
