@@ -1,6 +1,6 @@
-package com.ldaniels528.tabular
+package com.github.ldaniels528.tabular
 
-import com.ldaniels528.tabular.formatters.NumberFormatHandler
+import com.github.ldaniels528.tabular.formatters.NumberFormatHandler
 import org.scalatest.Matchers._
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.{FeatureSpec, GivenWhenThen}

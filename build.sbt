@@ -2,9 +2,9 @@ import sbt._
 
 name := "tabular"
 
-organization := "com.ldaniels528"
+organization := "com.github.ldaniels528"
 
-version := "0.1.2"
+version := "0.1.3"
 
 scalaVersion := "2.11.6"
 

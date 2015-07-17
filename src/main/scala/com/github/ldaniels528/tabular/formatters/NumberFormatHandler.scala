@@ -1,8 +1,8 @@
-package com.ldaniels528.tabular.formatters
+package com.github.ldaniels528.tabular.formatters
 
 import java.text.NumberFormat
 
-import com.ldaniels528.tabular.Tabular
+import com.github.ldaniels528.tabular.Tabular
 
 import scala.language.reflectiveCalls
 import scala.util.{Failure, Success, Try}

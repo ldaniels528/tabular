@@ -1,6 +1,6 @@
-package com.ldaniels528.tabular
+package com.github.ldaniels528.tabular
 
-import com.ldaniels528.tabular.formatters.FormatHandler
+import com.github.ldaniels528.tabular.formatters.FormatHandler
 import org.slf4j.LoggerFactory
 
 import scala.collection.GenSeq

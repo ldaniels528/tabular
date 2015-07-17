@@ -1,4 +1,4 @@
-package com.ldaniels528.tabular.formatters
+package com.github.ldaniels528.tabular.formatters
 
 /**
  * Tabular Data Formatter
